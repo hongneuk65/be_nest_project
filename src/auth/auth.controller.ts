@@ -1,3 +1,4 @@
+import { LineRange } from './../../node_modules/clean-css/node_modules/source-map/source-map.d';
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './passport/cal-auth.guard';
@@ -36,7 +37,11 @@ export class AuthController {
         to: 'congauoo5@gmail.com', // list of receivers
         subject: 'Testing Nest MailerModule ✔', // Subject line
         text: 'welcome', // plaintext body
-        html: '<b>Hello world with hong</b>', // HTML body content
+        template: "register", 
+        context: {
+          name: 'Van Hong',
+          activationCode: 123456789
+        }
       })
     return "ok";
   }

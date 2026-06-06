@@ -1,4 +1,4 @@
-import { MailerAsyncOptions } from './../node_modules/@nestjs-modules/mailer/dist/interfaces/mailer-async-options.interface.d';
+
 import { Module } from '@nestjs/common';
 import { AppController } from '@/app.controller';
 import { AppService } from '@/app.service';
@@ -55,13 +55,13 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
           from: '"No Reply" <no-reply@localhost>',
         },
         // preview: true,
-        // template: {
-        //   dir: process.cwd() + '/template/',
-        //   adapter: new HandlebarsAdapter(), 
-        //   options: {
-        //     strict: true,
-        //   },
-        // },
+        template: {
+          dir: process.cwd() + '/src/mail/templates/',
+          adapter: new HandlebarsAdapter(), 
+          options: {
+            strict: true,
+          },
+        },
       }),
       inject: [ConfigService],
 
