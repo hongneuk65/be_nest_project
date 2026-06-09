@@ -17,6 +17,7 @@ import { AuthModule } from '@/auth/auth.module';
 import { JwtAuthGuard } from './auth/passport/jwt-auth.guard';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { TransformInterceptor } from './core/transform.interceptor';
 
 @Module({
   imports: [
@@ -57,7 +58,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
         // preview: true,
         template: {
           dir: process.cwd() + '/src/mail/templates/',
-          adapter: new HandlebarsAdapter(), 
+          adapter: new HandlebarsAdapter(),
           options: {
             strict: true,
           },
@@ -73,6 +74,11 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
     {
       provide: 'APP_GUARD',
       useClass: JwtAuthGuard
+    },
+
+    {
+      provide: 'APP_INTERCEPTOR',
+      useClass: TransformInterceptor,
     }
   ],
 

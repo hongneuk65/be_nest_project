@@ -3,8 +3,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request }
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './passport/cal-auth.guard';
 import { JwtAuthGuard } from './passport/jwt-auth.guard';
-import { Public } from '@/decorator/customize';
-import { CreateAuthDto } from './dto/create-auth.dto';
+import { Public, ResponseMessage } from '@/decorator/customize';
+import { CodeAuthDto, CreateAuthDto } from './dto/create-auth.dto';
 import { MailerService } from '@nestjs-modules/mailer';
 
 
@@ -18,6 +18,7 @@ export class AuthController {
   @Post('login')
   @Public()
   @UseGuards(LocalAuthGuard)
+  @ResponseMessage("Fetch login")
   handleLogin(@Request() req) {
     return this.authService.login(req.user);
   }
@@ -27,6 +28,12 @@ export class AuthController {
   @Public()
   register(@Body() registerDto: CreateAuthDto) {
     return this.authService.handleRegister(registerDto);
+  }
+
+  @Post('check-code')
+  @Public()
+  checkCode(@Body() registerDto: CodeAuthDto) {
+    return this.authService.checkCode(registerDto);
   }
 
   @Get('mail')
