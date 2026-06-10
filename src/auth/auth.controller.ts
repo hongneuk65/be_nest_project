@@ -36,6 +36,12 @@ export class AuthController {
     return this.authService.checkCode(registerDto);
   }
 
+  @Post('retry-active')
+  @Public()
+  retryActive(@Body("email") email: string) {
+    return this.authService.retryActive(email);
+  }
+
   @Get('mail')
   @Public()
   testMail() {
@@ -44,7 +50,7 @@ export class AuthController {
         to: 'congauoo5@gmail.com', // list of receivers
         subject: 'Testing Nest MailerModule ✔', // Subject line
         text: 'welcome', // plaintext body
-        template: "register", 
+        template: "register",
         context: {
           name: 'Van Hong',
           activationCode: 123456789
