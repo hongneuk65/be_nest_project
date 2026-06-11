@@ -1,3 +1,4 @@
+import { comparePassword } from './../../helpers/util';
 import { IsNotEmpty, IsOptional } from "class-validator";
 
 export class CreateAuthDto {
@@ -17,6 +18,21 @@ export class CodeAuthDto {
 
     @IsNotEmpty({ message: 'code không được đẻ trống' })
     code: string;
+
+}
+
+export class changePasswordAuthDto {
+    @IsNotEmpty({ message: 'code không được để trống' })
+    code: string;
+    
+    @IsNotEmpty({ message: 'password không được để trống' })
+    password: string;
+
+    @IsNotEmpty({ message: 'comparePassword không được để trống' })
+    confirmPassword: string;
+
+    @IsNotEmpty({ message: 'email không được để trống' })
+    email: string;
 
 }
 
